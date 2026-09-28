@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sai Marketing — Monthly Business Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --bg-soft:#F7F5F0; --surface:#FFFFFF; --ink:#22201D; --ink-soft:#4A4640; --ink-mute:#8A8377;
+  --border:#E4DFD5; --maroon:#7C2D3A; --maroon-l:#F6EBED; --sage:#3B6B4F; --sage-l:#EDF3EF;
+  --terra:#B85C38; --terra-l:#FBEFE9; --amber:#B8860B; --amber-l:#FAF3E0;
+  --slate:#3E5871; --slate-l:#EDF1F5; --gold:#9A7B4F;
+  --r:12px; --r-sm:7px; --shadow:0 1px 3px rgba(34,32,29,.05);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',-apple-system,sans-serif;
+     font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 26px 80px;}
+
+/* header */
+header{border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:26px;}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;}
+h1{font-family:'Prata',Georgia,serif;font-weight:400;font-size:34px;line-height:1.2;margin:10px 0 4px;}
+.hsub{color:var(--ink-soft);margin:0;font-size:14.5px;}
+.bar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:20px;}
+.fgroup{display:flex;flex-direction:column;gap:4px;}
+.flabel{font-size:10px;font-weight:600;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;}
+.ctl{padding:8px 11px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:13.5px;
+     font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--ink);height:36px;cursor:pointer;}
+.ctl:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 2px var(--sage-l);}
+.btn{background:none;border:1px solid var(--border);color:var(--ink-soft);padding:8px 15px;
+     border-radius:var(--r-sm);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;height:36px;}
+.btn:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-l);}
+.stamp{margin-left:auto;font-size:12px;color:var(--ink-mute);padding-bottom:9px;}
+
+/* sections */
+h2{font-family:'Prata',Georgia,serif;font-weight:400;font-size:23px;margin:44px 0 3px;}
+.h2sub{color:var(--ink-mute);font-size:13px;margin:0 0 16px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      box-shadow:var(--shadow);padding:20px 22px;margin-bottom:18px;}
+.card-t{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+        color:var(--ink-mute);margin-bottom:16px;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:900px){.two{grid-template-columns:1fr;}}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:8px;}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+     box-shadow:var(--shadow);padding:16px 18px;border-top:3px solid var(--border);}
+.kpi.sage{border-top-color:var(--sage);} .kpi.terra{border-top-color:var(--terra);}
+.kpi.maroon{border-top-color:var(--maroon);} .kpi.amber{border-top-color:var(--amber);}
+.kpi.slate{border-top-color:var(--slate);} .kpi.gold{border-top-color:var(--gold);}
+.kpi-l{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mute);}
+.kpi-v{font-size:25px;font-weight:700;margin:5px 0 3px;letter-spacing:-.02em;}
+.kpi-s{font-size:12px;color:var(--ink-mute);}
+.up{color:var(--sage);font-weight:600;} .down{color:var(--maroon);font-weight:600;}
+
+/* chart */
+.chart{display:flex;align-items:flex-end;gap:14px;height:210px;padding:10px 0 4px;overflow-x:auto;}
+.cg{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:64px;}
+.cbars{display:flex;align-items:flex-end;gap:3px;width:100%;height:170px;justify-content:center;}
+.cb{flex:1;max-width:26px;border-radius:3px 3px 0 0;min-height:2px;}
+.cb.s{background:var(--sage);} .cb.p{background:var(--terra);}
+.cg.sel .cb.s{background:var(--maroon);} .cg.sel .cb.p{background:var(--gold);}
+.cl{font-size:10.5px;color:var(--ink-mute);text-align:center;white-space:nowrap;}
+.cg.sel .cl{color:var(--maroon);font-weight:700;}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink-mute);margin-top:6px;}
+.ld{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;}
+
+/* tables */
+.scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r);
+        background:var(--surface);box-shadow:var(--shadow);margin-bottom:18px;}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px;}
+th{background:var(--bg-soft);text-align:left;padding:11px 14px;font-weight:600;font-size:10.5px;
+   letter-spacing:.07em;text-transform:uppercase;color:var(--ink-mute);
+   border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--bg-soft);}
+.num{text-align:right;white-space:nowrap;}
+.ctr{text-align:center;}
+.nm{font-weight:500;} .ds{font-size:11.5px;color:var(--ink-mute);margin-top:1px;}
+.sku{font-family:ui-monospace,monospace;font-size:11px;background:var(--bg-soft);
+     padding:1px 6px;border-radius:4px;color:var(--ink-soft);}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;}
+.tag.ok{background:var(--sage-l);color:var(--sage);}
+.tag.warn{background:var(--amber-l);color:var(--amber);}
+.tag.bad{background:var(--maroon-l);color:var(--maroon);}
+.tag.new{background:var(--slate-l);color:var(--slate);}
+
+/* bars in tables */
+.mini{height:5px;background:var(--bg-soft);border-radius:3px;overflow:hidden;margin-top:5px;}
+.mini i{display:block;height:100%;border-radius:3px;}
+
+.note{background:var(--amber-l);border:1px solid var(--border);border-left:3px solid var(--amber);
+      border-radius:var(--r-sm);padding:12px 15px;font-size:13px;color:var(--ink-soft);margin:14px 0;}
+.note b{color:var(--amber);}
+.loading{text-align:center;padding:90px 20px;color:var(--ink-mute);}
+.spin{width:30px;height:30px;border:2.5px solid var(--border);border-top-color:var(--sage);
+      border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 16px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+footer{margin-top:54px;padding-top:20px;border-top:1px solid var(--border);
+       font-size:12px;color:var(--ink-mute);}
+
+@media print{
+  body{background:#fff;font-size:11pt;}
+  .wrap{max-width:100%;padding:0;}
+  .bar,.btn,.noprint{display:none !important;}
+  .card,.kpi,.scroll{box-shadow:none;break-inside:avoid;}
+  h2{break-after:avoid;} .scroll{overflow:visible;} table{min-width:0;}
+  .kpis{grid-template-columns:repeat(4,1fr);}
+  tbody tr:nth-child(n+16){display:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Sai Marketing · Grounded Co</div>
+  <h1>Monthly Business Report</h1>
+  <p class="hsub" id="hsub">Sales, clients, margins and inventory movement</p>
+  <div class="bar noprint">
+    <div class="fgroup">
+      <label class="flabel" for="mo">Reporting month</label>
+      <select class="ctl" id="mo" onchange="render()"></select>
+    </div>
+    <button class="btn" onclick="window.print()">⎙ Print / Save PDF</button>
+    <button class="btn" onclick="loadAll()">↻ Refresh</button>
+    <div class="stamp" id="stamp"></div>
+  </div>
+</header>
+
+<div class="loading" id="loading"><div class="spin"></div><div>Reading your sheets…</div></div>
+<div id="app" style="display:none">
+  <div id="notes"></div>
+
+  <h2>Month at a glance</h2>
+  <p class="h2sub" id="glance-sub"></p>
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Trend</h2>
+  <p class="h2sub">Sales and profit by month. The selected month is highlighted.</p>
+  <div class="card">
+    <div class="chart" id="chart"></div>
+    <div class="legend">
+      <span><i class="ld" style="background:var(--sage)"></i>Sales</span>
+      <span><i class="ld" style="background:var(--terra)"></i>Profit</span>
+    </div>
+  </div>
+  <div class="scroll"><table id="mtable">
+    <thead><tr><th>Month</th><th class="num">Sales</th><th class="num">Profit</th><th class="ctr">Margin</th>
+    <th class="ctr">Orders</th><th class="num">AOV</th><th class="ctr">Clients</th><th class="num">Collected</th></tr></thead>
+    <tbody id="mtbody"></tbody></table></div>
+
+  <h2>Clients</h2>
+  <p class="h2sub" id="cl-sub"></p>
+  <div class="kpis" id="cl-kpis"></div>
+  <div class="card">
+    <div class="card-t">Lifetime value — top 15 clients, all months</div>
+    <div class="scroll" style="margin:0;border:none;box-shadow:none">
+      <table><thead><tr><th>Client</th><th class="ctr">Orders</th><th class="num">Revenue LTV</th>
+      <th class="num">Profit LTV</th><th class="ctr">Margin</th><th class="num">AOV</th>
+      <th class="ctr">Active</th><th class="ctr">Type</th></tr></thead>
+      <tbody id="ltv-tbody"></tbody></table>
+    </div>
+  </div>
+
+  <h2>Best sellers</h2>
+  <p class="h2sub" id="bs-sub"></p>
+  <div class="scroll"><table>
+    <thead><tr><th>Product</th><th>SKU</th><th>Category</th><th class="ctr">Qty</th>
+    <th class="num">Revenue</th><th class="num">Profit</th><th class="ctr">Margin</th><th class="ctr">Orders</th></tr></thead>
+    <tbody id="bs-tbody"></tbody></table></div>
+  <div class="two">
+    <div class="card"><div class="card-t">Revenue by category</div><div id="cat-bars"></div></div>
+    <div class="card"><div class="card-t">Profit by category</div><div id="catp-bars"></div></div>
+  </div>
+
+  <h2>Inventory &amp; replenishment</h2>
+  <p class="h2sub" id="inv-sub"></p>
+  <div class="kpis" id="inv-kpis"></div>
+  <div class="note" id="inv-note"></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Product</th><th>SKU</th><th class="ctr">Stock</th><th class="ctr">Sold / day</th>
+    <th class="ctr">Days of cover</th><th class="ctr">Lead time</th><th class="ctr">Reorder every</th>
+    <th class="ctr">Status</th></tr></thead>
+    <tbody id="inv-tbody"></tbody></table></div>
+
+  <footer id="foot"></footer>
+</div>
+</div>
+
+<script>
+const SS='1WJKQ2euCVVSO-74pfLpHWW1LacFWjbaMQaQk9rmr998';
+const GID={live:462933353,inv:0,sr:1644576672,pt:1280253569,nsa:663363817};
+const GST=0.18, LOC='en-US';
+let PT=[],SR=[],NSA=[],LIVE=[],INV=[],SKU={},notes=[],MONTHS=[];
+
+/* ── helpers ───────────────────────────────────────────────────────────── */
+const n=v=>{if(v==null)return 0;const c=String(v).replace(/[₹,\s%#]/g,'').replace(/[^\d.\-]/g,'');
+  const f=parseFloat(c);return isNaN(f)?0:f;};
+const num=v=>Math.round(v).toLocaleString(LOC);
+const fmt=v=>v?'₹'+num(v):'—';
+const pct=v=>(v>=0?'':'')+v.toFixed(1)+'%';
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const exGST=v=>v/(1+GST), gstOf=v=>v-exGST(v);
+
+function pdate(s){
+  if(!s)return null;
+  const c=String(s).replace(/[./]/g,'-').trim(), p=c.split('-');
+  if(p.length<3)return null;
+  let y,m,d;
+  if(p[0].length===4){y=+p[0];m=+p[1];d=+p[2];}else{d=+p[0];m=+p[1];y=+p[2];}
+  if(!y||!m||!d||m>12||d>31)return null;
+  const dt=new Date(y,m-1,d);
+  return isNaN(dt)?null:dt;
+}
+const mkey=dt=>dt?dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0'):null;
+const mlabel=k=>{const[y,m]=k.split('-');
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+y;};
+
+/* ── CSV ───────────────────────────────────────────────────────────────── */
+function colLetter(i){let s='';i+=1;while(i){const r=(i-1)%26;s=String.fromCharCode(65+r)+s;i=(i-1-r)/26;}return s;}
+function records(t){
+  const out=[];let row=[],cur='',q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){ if(ch==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+    else if(ch==='"')q=true;
+    else if(ch===','){row.push(cur);cur='';}
+    else if(ch==='\n'){row.push(cur);out.push(row);row=[];cur='';}
+    else cur+=ch;}
+  if(cur!==''||row.length){row.push(cur);out.push(row);}
+  return out;
+}
+function parseCSV(text,hr){
+  const rec=records(text.replace(/\r\n/g,'\n').replace(/\r/g,'\n'));
+  if(rec.length<=hr)return{headers:[],rows:[]};
+  const hd=rec[hr].map(h=>(h||'').trim());
+  const width=Math.max(hd.length,...rec.map(r=>r.length));
+  const seen={},keys=[];
+  for(let i=0;i<width;i++){const h=hd[i]||'';
+    if(!h){keys.push('');continue;}
+    if(seen[h]){seen[h]++;keys.push(h+' ('+seen[h]+')');}else{seen[h]=1;keys.push(h);}}
+  const rows=rec.slice(hr+1).map(c=>{const o={};
+    for(let i=0;i<width;i++){const v=(c[i]||'').trim();o['Column '+colLetter(i)]=v;if(keys[i])o[keys[i]]=v;}
+    return o;}).filter(r=>Object.values(r).some(v=>v));
+  return{headers:keys,rows};
+}
+const fetchSheet=(gid,hr)=>fetch(`https://docs.google.com/spreadsheets/d/${SS}/export?format=csv&gid=${gid}`)
+  .then(r=>r.text()).then(t=>parseCSV(t,hr));
+
+/* ── load ──────────────────────────────────────────────────────────────── */
+async function loadAll(){
+  document.getElementById('loading').style.display='block';
+  document.getElementById('app').style.display='none';
+  notes=[];
+  try{
+    const[live,inv,sr,pt,nsa]=await Promise.all([
+      fetchSheet(GID.live,7),fetchSheet(GID.inv,0),fetchSheet(GID.sr,2),
+      fetchSheet(GID.pt,11),fetchSheet(GID.nsa,1)]);
+
+    LIVE=live.rows.filter(r=>(r['SKU']||'').trim());
+    INV=inv.rows.filter(r=>(r['SKU']||'').trim());
+    SR=sr.rows.filter(r=>(r['SKU']||'').trim()&&n(r['Qty Sold'])>0);
+    NSA=nsa.rows.filter(r=>(r['SKU']||'').trim()&&n(r['Qty Added'])>0);
+
+    const ivm={};
+    INV.forEach(r=>{const s=(r['SKU']||'').trim();if(s)ivm[s]={
+      sale:n(r['Sale Rate (incl GST)']),margin:n(r['Margin in INR incl GST']),
+      mpct:n(r['Margin %']),reorder:n(r['Reorder Level'])};});
+    SKU={};
+    LIVE.forEach(r=>{const s=(r['SKU']||'').trim();if(!s)return;
+      SKU[s]={name:r['ITEM NAME']||'',cat:(r['Product Category']||'').trim()||'Uncategorised',
+              stock:n(r['TOTAL']),...(ivm[s]||{})};});
+    SR.concat(NSA).forEach(r=>{const s=(r['SKU']||'').trim();
+      if(s&&!SKU[s])SKU[s]={name:r['Item Name']||r['Item']||'',cat:(r['Product Category']||'').trim()||'Uncategorised',stock:0};});
+
+    // Payment Tracker — challan number is column B; read by position if the header is gone
+    const hasHdr=pt.headers.some(h=>h==='Challan Number'||h==='Challan');
+    if(!hasHdr)notes.push('The Payment Tracker\'s challan column (B) has no header — reading it by position. Put "Challan Number" back in cell B12.');
+    const all=pt.rows.filter(r=>{const c=chOf(r);return c&&c!=='Challan Number'&&c!=='#REF!';});
+    PT=all.filter(r=>!/kaushik/i.test((r['Client Name']||'')+' '+chOf(r)));
+    const drop=all.length-PT.length;
+    if(drop)notes.push(`${drop} "Kaushik" adjustment ${drop===1?'entry':'entries'} excluded from every figure.`);
+
+    buildMonths();
+    document.getElementById('stamp').textContent='Updated '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='block';
+    render();
+  }catch(e){
+    document.getElementById('loading').innerHTML=
+      '<p style="color:var(--maroon)">Could not load the sheets.</p><p style="font-size:13px">'+esc(e.message)+'</p>';
+  }
+}
+const chOf=r=>(r['Challan Number']||r['Challan']||r['Column B']||'').trim();
+const srDate=r=>pdate(r['Date']);
+const nsaDate=r=>pdate(r['Delivery Date'])||pdate(r['Invoice Date'])||pdate(r['Order Placed Date']);
+
+function buildMonths(){
+  const now=new Date(), horizon=now.getFullYear()+2, floor=2000;
+  const set={}; let bad=0;
+  PT.forEach(r=>{const d=pdate(r['Challan Date']);
+    if(!d)return;
+    if(d.getFullYear()<floor||d.getFullYear()>horizon){bad++;r._bad=true;return;}
+    set[mkey(d)]=(set[mkey(d)]||0)+1;});
+  if(bad)notes.push(`${bad} challan${bad===1?' carries':'s carry'} a year outside 2000–${horizon} — almost certainly a mistyped year. They are listed under “Unusable dates” and left out of the monthly figures.`);
+  MONTHS=Object.keys(set).sort();
+  const now2=new Date(), curKey=mkey(now2);
+  const sel=document.getElementById('mo');
+  sel.innerHTML=MONTHS.map(k=>`<option value="${k}">${mlabel(k)}${k===curKey?' (part month)':''}</option>`).join('')
+    +`<option value="ALL">All months combined</option>`;
+  // open on the last complete month — a part month compares badly against a full one
+  const complete=MONTHS.filter(k=>k!==curKey);
+  sel.value=(complete[complete.length-1])||MONTHS[MONTHS.length-1]||'ALL';
+}
+
+/* ── aggregation ───────────────────────────────────────────────────────── */
+const ptRows=k=>PT.filter(r=>{if(r._bad)return false;const d=pdate(r['Challan Date']);
+  return d&&(k==='ALL'||mkey(d)===k);});
+const srRows=k=>SR.filter(r=>{const d=srDate(r);return d&&(k==='ALL'||mkey(d)===k);});
+const nsaRows=k=>NSA.filter(r=>{const d=nsaDate(r);return d&&(k==='ALL'||mkey(d)===k);});
+
+function ptStats(rows){
+  const sales=rows.reduce((s,r)=>s+n(r['Total Sales']),0);
+  const pl=rows.reduce((s,r)=>s+n(r['Profit / Loss']),0);
+  const coll=rows.reduce((s,r)=>s+n(r['Total Paid'])+n(r['Late payments']),0);
+  const due=rows.reduce((s,r)=>s+Math.max(0,n(r['Balance Due'])),0);
+  const cl=new Set(rows.map(r=>(r['Client Name']||'—').trim().toLowerCase()));
+  return{sales,pl,coll,due,orders:rows.length,clients:cl.size,
+    aov:rows.length?sales/rows.length:0,margin:sales?pl/sales*100:0};
+}
+function delta(cur,prev){
+  if(prev===undefined||prev===null||!isFinite(prev)||prev===0)return '';
+  const d=(cur-prev)/Math.abs(prev)*100;
+  const cls=d>=0?'up':'down';
+  return `<span class="${cls}">${d>=0?'▲':'▼'} ${Math.abs(d).toFixed(0)}%</span> vs prev`;
+}
+
+/* ── render ────────────────────────────────────────────────────────────── */
+function render(){
+  const k=document.getElementById('mo').value;
+  renderNotes(); renderGlance(k); renderTrend(k);
+  renderClients(k); renderBest(k); renderInventory(k);
+  const partial = k===mkey(new Date());
+  document.getElementById('hsub').textContent =
+    (k==='ALL'?'All months combined':mlabel(k)+(partial?' — month still in progress':''))
+    +' · Sai Marketing, Madgaon';
+  document.getElementById('foot').innerHTML =
+    `Prepared by Grounded Co · generated ${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})} `
+    +`· figures read live from the workbook, so they update on refresh.`;
+}
+
+function renderNotes(){
+  const el=document.getElementById('notes');
+  el.innerHTML=notes.map((t,i)=>`<div class="note"><b>⚠</b> ${esc(t)}
+    <span class="noprint" style="float:right;cursor:pointer;opacity:.5" onclick="this.parentNode.remove()">×</span></div>`).join('');
+}
+
+function renderGlance(k){
+  const rows=ptRows(k), st=ptStats(rows);
+  const idx=MONTHS.indexOf(k);
+  const prev=(k!=='ALL'&&idx>0)?ptStats(ptRows(MONTHS[idx-1])):null;
+  const isPartial=k===mkey(new Date());
+  document.getElementById('glance-sub').textContent =
+    `${st.orders} challans · ${st.clients} clients · collected ${fmt(st.coll)} of ${fmt(st.sales)}`
+    + (isPartial?` · only ${windowDays(k)} days elapsed, so comparisons against the previous full month read low`:'');
+  const kp=[
+    {c:'sage', l:'Sales (incl GST)', v:fmt(st.sales), s:prev?delta(st.sales,prev.sales):`${fmt(exGST(st.sales))} + ${fmt(gstOf(st.sales))} GST`},
+    {c:'terra',l:'Profit', v:fmt(st.pl), s:prev?delta(st.pl,prev.pl):'from column J'},
+    {c:'gold', l:'Blended margin', v:st.sales?pct(st.margin):'—', s:prev?`prev ${pct(prev.margin)}`:'profit ÷ sales'},
+    {c:'slate',l:'Orders', v:num(st.orders), s:prev?delta(st.orders,prev.orders):'challans raised'},
+    {c:'amber',l:'Average order value', v:fmt(st.aov), s:prev?delta(st.aov,prev.aov):'sales ÷ orders'},
+    {c:'sage', l:'Active clients', v:num(st.clients), s:prev?delta(st.clients,prev.clients):'billed this period'},
+    {c:'maroon',l:'Outstanding', v:fmt(st.due), s:st.sales?`${Math.round(st.coll/st.sales*100)}% collected`:'—'},
+    {c:'slate',l:'GST in sales', v:fmt(gstOf(st.sales)), s:'at 18%'},
+  ];
+  document.getElementById('kpis').innerHTML=kp.map(x=>
+    `<div class="kpi ${x.c}"><div class="kpi-l">${x.l}</div><div class="kpi-v">${x.v}</div><div class="kpi-s">${x.s}</div></div>`).join('');
+}
+
+function renderTrend(k){
+  const data=MONTHS.map(m=>({m,...ptStats(ptRows(m))}));
+  const max=Math.max(...data.map(d=>d.sales),1);
+  document.getElementById('chart').innerHTML=data.map(d=>`
+    <div class="cg ${d.m===k?'sel':''}" title="${mlabel(d.m)}&#10;Sales ${fmt(d.sales)}&#10;Profit ${fmt(d.pl)}&#10;Margin ${pct(d.margin)}">
+      <div class="cbars">
+        <div class="cb s" style="height:${Math.max(2,d.sales/max*170)}px"></div>
+        <div class="cb p" style="height:${Math.max(2,Math.max(0,d.pl)/max*170)}px"></div>
+      </div>
+      <div class="cl">${mlabel(d.m)}</div>
+    </div>`).join('');
+  document.getElementById('mtbody').innerHTML=data.map(d=>`
+    <tr style="${d.m===k?'background:var(--sage-l)':''}">
+      <td class="nm">${mlabel(d.m)}</td>
+      <td class="num">${fmt(d.sales)}</td>
+      <td class="num">${fmt(d.pl)}</td>
+      <td class="ctr" style="color:${d.margin<15?'var(--maroon)':d.margin<25?'var(--amber)':'var(--sage)'};font-weight:600">${d.sales?pct(d.margin):'—'}</td>
+      <td class="ctr">${d.orders}</td>
+      <td class="num">${fmt(d.aov)}</td>
+      <td class="ctr">${d.clients}</td>
+      <td class="num" style="color:var(--sage)">${fmt(d.coll)}</td>
+    </tr>`).join('');
+}
+
+function clientRoll(){
+  const m={};
+  PT.forEach(r=>{
+    if(r._bad)return;
+    const c=(r['Client Name']||'—').trim()||'—', d=pdate(r['Challan Date']);
+    if(!m[c])m[c]={c,rev:0,pl:0,n:0,first:null,last:null,months:new Set()};
+    const o=m[c];
+    o.rev+=n(r['Total Sales']); o.pl+=n(r['Profit / Loss']); o.n++;
+    if(d){o.months.add(mkey(d));
+      if(!o.first||d<o.first)o.first=d;
+      if(!o.last||d>o.last)o.last=d;}
+  });
+  return Object.values(m);
+}
+
+function renderClients(k){
+  const all=clientRoll();
+  const rows=ptRows(k);
+  const active=new Set(rows.map(r=>(r['Client Name']||'—').trim()||'—'));
+  // a client is new if this is the first month they ever appear in
+  const firstMonth={}; all.forEach(o=>{if(o.first)firstMonth[o.c]=mkey(o.first);});
+  const newN=k==='ALL'?all.length:[...active].filter(c=>firstMonth[c]===k).length;
+  const repeat=all.filter(o=>o.n>1);
+  const once=all.filter(o=>o.n===1);
+  const avgRep=repeat.length?repeat.reduce((s,o)=>s+o.rev,0)/repeat.length:0;
+  const avgOnce=once.length?once.reduce((s,o)=>s+o.rev,0)/once.length:0;
+  const totRev=all.reduce((s,o)=>s+o.rev,0), totPl=all.reduce((s,o)=>s+o.pl,0);
+
+  document.getElementById('cl-sub').textContent =
+    `${active.size} clients billed in ${k==='ALL'?'all months':mlabel(k)} · ${all.length} clients all time`;
+  const kp=[
+    {c:'sage', l:'Avg revenue LTV', v:fmt(all.length?totRev/all.length:0), s:`across ${all.length} clients`},
+    {c:'terra',l:'Avg profit LTV',  v:fmt(all.length?totPl/all.length:0),  s:totRev?`${pct(totPl/totRev*100)} blended`:'—'},
+    {c:'gold', l:'Repeat clients',  v:`${repeat.length}`, s:`${Math.round(repeat.length/Math.max(1,all.length)*100)}% of all clients`},
+    {c:'slate',l:'Repeat vs one-time LTV', v:avgOnce?(avgRep/avgOnce).toFixed(1)+'×':'—', s:`${fmt(avgRep)} vs ${fmt(avgOnce)}`},
+    {c:'amber',l:'New this period', v:num(newN), s:k==='ALL'?'all clients':'first order in this month'},
+  ];
+  document.getElementById('cl-kpis').innerHTML=kp.map(x=>
+    `<div class="kpi ${x.c}"><div class="kpi-l">${x.l}</div><div class="kpi-v">${x.v}</div><div class="kpi-s">${x.s}</div></div>`).join('');
+
+  const max=Math.max(...all.map(o=>o.rev),1);
+  document.getElementById('ltv-tbody').innerHTML=all.sort((a,b)=>b.rev-a.rev).slice(0,15).map(o=>{
+    const mg=o.rev?o.pl/o.rev*100:0;
+    return `<tr>
+      <td><div class="nm">${esc(o.c.substring(0,38))}</div>
+          <div class="mini"><i style="width:${o.rev/max*100}%;background:var(--sage)"></i></div></td>
+      <td class="ctr">${o.n}</td>
+      <td class="num" style="font-weight:600">${fmt(o.rev)}</td>
+      <td class="num" style="color:${o.pl>=0?'var(--sage)':'var(--maroon)'}">${fmt(o.pl)}</td>
+      <td class="ctr" style="font-weight:600;color:${mg>90?'var(--amber)':mg<10?'var(--maroon)':'var(--sage)'}">${o.rev?pct(mg)+(mg>90?' ⚠':''):'—'}</td>
+      <td class="num">${fmt(o.rev/o.n)}</td>
+      <td class="ctr">${active.has(o.c)?'<span class="tag ok">Yes</span>':'<span class="tag warn">No</span>'}</td>
+      <td class="ctr">${o.n>1?`<span class="tag new">Repeat</span>`:`<span class="tag warn">One-time</span>`}</td>
+    </tr>`;}).join('');
+}
+
+function renderBest(k){
+  const rows=srRows(k);
+  const m={};
+  rows.forEach(r=>{
+    const s=(r['SKU']||'').trim();
+    if(!m[s])m[s]={s,name:(SKU[s]&&SKU[s].name)||r['Item Name']||r['Item']||'',
+                   cat:(SKU[s]&&SKU[s].cat)||(r['Product Category']||'').trim()||'Uncategorised',
+                   qty:0,rev:0,pl:0,n:0};
+    const o=m[s];
+    o.qty+=n(r['Qty Sold']); o.rev+=n(r['Actual Total Selling Price incl GST']);
+    o.pl+=n(r['Profit/Loss in Rs']); o.n++;
+  });
+  const list=Object.values(m).sort((a,b)=>b.rev-a.rev);
+  const totRev=list.reduce((s,o)=>s+o.rev,0);
+  document.getElementById('bs-sub').textContent =
+    `${list.length} SKUs sold · ${fmt(totRev)} of line-item revenue · top 15 shown`;
+  const max=list[0]?list[0].rev:1;
+  document.getElementById('bs-tbody').innerHTML=list.slice(0,15).map(o=>{
+    const mg=o.rev?o.pl/o.rev*100:0;
+    return `<tr>
+      <td><div class="nm">${esc(o.name.substring(0,40))||'—'}</div>
+          <div class="mini"><i style="width:${o.rev/max*100}%;background:var(--terra)"></i></div></td>
+      <td><span class="sku">${esc(o.s)}</span></td>
+      <td style="font-size:12px">${esc(o.cat.substring(0,22))}</td>
+      <td class="ctr">${num(o.qty)}</td>
+      <td class="num" style="font-weight:600">${fmt(o.rev)}</td>
+      <td class="num" style="color:${o.pl>=0?'var(--sage)':'var(--maroon)'}">${fmt(o.pl)}</td>
+      <td class="ctr" style="font-weight:600;color:${mg>90?'var(--amber)':mg<10?'var(--maroon)':'var(--sage)'}">${o.rev?pct(mg)+(mg>90?' ⚠':''):'—'}</td>
+      <td class="ctr">${o.n}</td>
+    </tr>`;}).join('')||`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--ink-mute)">No sales recorded in this period</td></tr>`;
+
+  const cr={},cp={};
+  list.forEach(o=>{cr[o.cat]=(cr[o.cat]||0)+o.rev; cp[o.cat]=(cp[o.cat]||0)+o.pl;});
+  document.getElementById('cat-bars').innerHTML=bars(cr,'var(--sage)');
+  document.getElementById('catp-bars').innerHTML=bars(cp,'var(--terra)');
+}
+function bars(map,colour){
+  const e=Object.entries(map).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const max=e[0]?e[0][1]:1;
+  return e.map(([kk,v])=>`
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+        <span>${esc(kk.substring(0,26))}</span><span style="color:var(--ink-mute)">${fmt(v)}</span></div>
+      <div class="mini" style="height:7px"><i style="width:${v/max*100}%;background:${colour}"></i></div>
+    </div>`).join('')||`<div style="color:var(--ink-mute);font-size:13px">No data in this period</div>`;
+}
+
+function renderInventory(k){
+  // Sales velocity over the selected window; lead time and reorder cadence from purchases
+  const sold={}, win=srRows(k);
+  win.forEach(r=>{const s=(r['SKU']||'').trim();sold[s]=(sold[s]||0)+n(r['Qty Sold']);});
+  const days=windowDays(k);
+
+  const lead={}, recv={};
+  NSA.forEach(r=>{
+    const s=(r['SKU']||'').trim();
+    const del=pdate(r['Delivery Date'])||pdate(r['Invoice Date']);
+    const ord=pdate(r['Order Placed Date']);
+    if(del&&ord){const L=Math.round((del-ord)/864e5); if(L>=0&&L<365)(lead[s]=lead[s]||[]).push(L);}
+    if(del)(recv[s]=recv[s]||[]).push(del);
+  });
+  const med=a=>{if(!a||!a.length)return null;const b=[...a].sort((x,y)=>x-y);return b[Math.floor(b.length/2)];};
+  const gapOf=s=>{const d=[...new Set((recv[s]||[]).map(x=>+x))].sort((a,b)=>a-b);
+    const g=[];for(let i=1;i<d.length;i++){const v=Math.round((d[i]-d[i-1])/864e5);if(v>0&&v<365)g.push(v);}
+    return med(g);};
+
+  const allLead=[].concat(...Object.values(lead));
+  const allGap=Object.keys(recv).map(gapOf).filter(v=>v!==null);
+
+  const list=Object.keys(sold).filter(s=>sold[s]>0).map(s=>{
+    const perDay=sold[s]/days;
+    const stock=(SKU[s]&&SKU[s].stock)||0;
+    const cover=perDay>0?stock/perDay:null;
+    const L=med(lead[s]), G=gapOf(s);
+    let status='ok';
+    if(stock<=0)status='out';
+    else if(cover!==null&&L!==null&&cover<L)status='risk';
+    else if(cover!==null&&cover<7)status='low';
+    return{s,name:(SKU[s]&&SKU[s].name)||'',sold:sold[s],perDay,stock,cover,lead:L,gap:G,status};
+  }).sort((a,b)=>{
+    const rank={out:0,risk:1,low:2,ok:3};
+    return rank[a.status]-rank[b.status]||b.sold-a.sold;});
+
+  const risky=list.filter(x=>x.status==='out'||x.status==='risk').length;
+  const kp=[
+    {c:'slate',l:'SKUs sold in period',v:num(list.length),s:`over ${days} days`},
+    {c:'sage', l:'Median supplier lead time',v:allLead.length?med(allLead)+' days':'—',s:`${allLead.length} purchase lines`},
+    {c:'amber',l:'Median reorder interval',v:allGap.length?med(allGap)+' days':'—',s:'between deliveries of the same SKU'},
+    {c:'maroon',l:'At stockout risk',v:num(risky),s:'out of stock, or cover below lead time'},
+  ];
+  document.getElementById('inv-kpis').innerHTML=kp.map(x=>
+    `<div class="kpi ${x.c}"><div class="kpi-l">${x.l}</div><div class="kpi-v">${x.v}</div><div class="kpi-s">${x.s}</div></div>`).join('');
+
+  const soldOnly=Object.keys(sold).filter(s=>!recv[s]).length;
+  document.getElementById('inv-sub').textContent =
+    `Days of cover = current stock ÷ average daily sales in this period. Lead time = order placed to delivery.`;
+  document.getElementById('inv-note').innerHTML =
+    `<b>How to read this.</b> A SKU is flagged when it is out of stock, or when days of cover is lower than its own `
+    +`supplier lead time — meaning it will run out before a replacement order can arrive. `
+    +(soldOnly?`${soldOnly} of the SKUs sold this period have no purchase history in the additions sheet, so no lead time can be calculated for them.`:'');
+
+  document.getElementById('inv-tbody').innerHTML=list.slice(0,25).map(o=>{
+    const tag={out:'<span class="tag bad">Out of stock</span>',
+               risk:'<span class="tag bad">Reorder now</span>',
+               low:'<span class="tag warn">Low cover</span>',
+               ok:'<span class="tag ok">Healthy</span>'}[o.status];
+    return `<tr>
+      <td><div class="nm">${esc((o.name||'—').substring(0,38))}</div><div class="ds">${num(o.sold)} sold in period</div></td>
+      <td><span class="sku">${esc(o.s)}</span></td>
+      <td class="ctr" style="font-weight:600">${num(o.stock)}</td>
+      <td class="ctr">${o.perDay>=1?o.perDay.toFixed(1):o.perDay.toFixed(2)}</td>
+      <td class="ctr" style="font-weight:600;color:${o.cover===null?'var(--ink-mute)':o.cover<7?'var(--maroon)':o.cover<21?'var(--amber)':'var(--sage)'}">${o.cover===null?'—':Math.round(o.cover)+'d'}</td>
+      <td class="ctr">${o.lead===null?'<span style="color:var(--ink-mute)">no history</span>':o.lead+'d'}</td>
+      <td class="ctr">${o.gap===null?'—':o.gap+'d'}</td>
+      <td class="ctr">${tag}</td>
+    </tr>`;}).join('')||`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--ink-mute)">No sales in this period</td></tr>`;
+}
+
+function windowDays(k){
+  if(k==='ALL'){
+    const ds=PT.filter(r=>!r._bad).map(r=>pdate(r['Challan Date'])).filter(Boolean).sort((a,b)=>a-b);
+    if(!ds.length)return 30;
+    return Math.max(1,Math.round((ds[ds.length-1]-ds[0])/864e5)+1);
+  }
+  const[y,m]=k.split('-').map(Number);
+  const end=new Date(y,m,0), today=new Date();
+  const last=(today.getFullYear()===y&&today.getMonth()+1===m)?today.getDate():end.getDate();
+  return Math.max(1,last);
+}
+
+loadAll();
+</script>
+</body>
+</html>

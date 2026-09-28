@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sai Marketing — Reporting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--bg-soft:#F7F5F0;--surface:#FFFFFF;--ink:#22201D;--ink-soft:#4A4640;
+      --ink-mute:#8A8377;--border:#E4DFD5;--maroon:#7C2D3A;--sage:#3B6B4F;--terra:#B85C38;
+      --r:12px;--shadow:0 1px 3px rgba(34,32,29,.05);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',-apple-system,sans-serif;
+     font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:780px;margin:0 auto;padding:70px 26px 90px;}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;}
+h1{font-family:'Prata',Georgia,serif;font-weight:400;font-size:34px;margin:12px 0 8px;}
+.sub{color:var(--ink-soft);margin:0 0 42px;max-width:56ch;}
+a.tile{display:block;text-decoration:none;color:inherit;background:var(--surface);
+       border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);
+       padding:24px 26px;margin-bottom:18px;border-left:3px solid var(--sage);transition:.15s;}
+a.tile:nth-of-type(2){border-left-color:var(--terra);}
+a.tile:hover{background:var(--bg-soft);transform:translateY(-1px);}
+.tile h2{font-family:'Prata',Georgia,serif;font-weight:400;font-size:21px;margin:0 0 6px;}
+.tile p{margin:0;color:var(--ink-soft);font-size:13.5px;}
+.tile .go{font-size:11px;color:var(--maroon);margin-top:12px;letter-spacing:.07em;
+          text-transform:uppercase;font-weight:600;}
+footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--border);
+       font-size:12.5px;color:var(--ink-mute);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Sai Marketing · Grounded Co</div>
+  <h1>Reporting</h1>
+  <p class="sub">Both tools read the live workbook. Figures update whenever the sheets change — there is nothing to re-upload.</p>
+
+  <a class="tile" href="command-centre.html">
+    <h2>Stock Command Centre</h2>
+    <p>Live stock by godown, payments and profitability by challan and client, money in stock,
+       purchases and payouts, reorder alerts.</p>
+    <div class="go">Open →</div>
+  </a>
+
+  <a class="tile" href="monthly-report.html">
+    <h2>Monthly Business Report</h2>
+    <p>Month-by-month sales, margins and order values, client lifetime value, best sellers,
+       and inventory cover against supplier lead times. Printable.</p>
+    <div class="go">Open →</div>
+  </a>
+
+  <footer>Prepared by Grounded Co. Figures read directly from the Google workbook.</footer>
+</div>
+</body>
+</html>
